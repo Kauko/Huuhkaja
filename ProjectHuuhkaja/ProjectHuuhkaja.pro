@@ -30,8 +30,14 @@ QT += declarative
 # CONFIG += qt-components
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    huuhkajabluetooth.cpp \
-    accelerometer.cpp
+    bluetooth.cpp
+SOURCES +=
+SOURCES += accelerometer.cpp
+
+HEADERS += \
+    bluetooth.h
+HEADERS += singleton.h
+HEADERS += accelerometer.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -43,7 +49,8 @@ OTHER_FILES += qtc_packaging/debian_harmattan/rules \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog
-HEADERS += huuhkajabluetooth.h \
-    singleton.h \
-    accelerometer.h
+
+
+
+
 

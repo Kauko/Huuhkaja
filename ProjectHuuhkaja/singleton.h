@@ -4,27 +4,29 @@
 #include <assert.h>
 
 template <class T> class Singleton {
-        static T* mInstance;
+    static T* mInstance;
 public:
-        static T* instance() {
-                if(!mInstance) {
-                        mInstance = new T;
-                }
-                assert(mInstance != NULL);
-                return mInstance;
+    static void init(QObject *parent) {
+        assert(mInstance == NULL);
+        mInstance = new T(parent);
+    }
+
+    static T* instance() {
+        assert(mInstance != NULL);
+        return mInstance;
+    }
+    static void destroy() {
+        if(mInstance) {
+            delete mInstance;
+            mInstance = NULL;
         }
-        static void destroy() {
-                if(mInstance) {
-                        delete mInstance;
-                        mInstance = NULL;
-                }
-        }
+    }
 protected:
-        Singleton(){}
-        virtual ~Singleton(){}
+    Singleton(){}
+    virtual ~Singleton(){}
 private:
-        Singleton(Singleton const&);
-        Singleton& operator=(Singleton const&);
+    Singleton(Singleton const&);
+    Singleton& operator=(Singleton const&);
 };
 
 template<class T> T* Singleton<T>::mInstance = NULL;

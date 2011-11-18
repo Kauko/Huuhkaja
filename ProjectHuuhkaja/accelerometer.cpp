@@ -1,4 +1,9 @@
 #include "accelerometer.h"
-#include <iostream>
+
 Accelerometer::Accelerometer(QObject *parent) : QObject(parent) {
+    qDebug("Accelerometer Construct");
+}
+
+Accelerometer::~Accelerometer() {
+    qDebug("Accelerometer Destruct");
 }

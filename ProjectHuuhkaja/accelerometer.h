@@ -8,10 +8,7 @@ class Accelerometer : public QObject, public Singleton<Accelerometer> {
     Q_OBJECT
 public:
     explicit Accelerometer(QObject *parent = 0);
-
-    int test() {
-        return 1;
-    }
+    ~Accelerometer();
 signals:
 
 public slots:
