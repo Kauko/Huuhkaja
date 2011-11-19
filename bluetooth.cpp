@@ -55,6 +55,7 @@ void Bluetooth::update()
 ///
 void Bluetooth::start()
 {
+    hasBeenStarted = true;
     discoveryAgent->start();
 }
 
