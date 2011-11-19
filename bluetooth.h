@@ -11,6 +11,7 @@
 #include <QBluetoothAddress>
 #include <QBluetoothDeviceInfo>
 #include <QBluetoothDeviceDiscoveryAgent>
+#include <QMutex>
 #include "singleton.h"
 
 class Bluetooth : public QObject, public Singleton<Bluetooth> {
@@ -35,6 +36,7 @@ private:
 
     bool justPolled;
     bool hasBeenStarted;
+    QMutex* mapMutex;
 
     //private methods
 

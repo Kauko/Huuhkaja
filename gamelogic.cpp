@@ -16,6 +16,14 @@ GameLogic::~GameLogic() {
 
 void GameLogic::gameLoop() {
     qDebug(QString::number(Accelerometer::instance()->getAccelerometerAccelerationDelta()).toAscii());
+    QMap<QString, qint16> dm = Bluetooth::instance()->getDeviceMap();
+
+    QMapIterator<QString,qint16> it(dm);
+    while(it.hasNext()) {
+        it.next();
+        QString str = it.key() + ": " + QString::number(it.value());
+        qDebug(str.toAscii());
+    }
     //what should happen here:
     //we have a loop, during which both the accelometer and bluetooth will be updated
     //and we should also store the relevant values we can get from these classes
@@ -24,4 +32,5 @@ void GameLogic::gameLoop() {
     //and stuff like that
     //also, some sort of animationmanager/screenmanager (what should be drawn, where, what kind of screen is displayed, how does the updatecycle work there? Etc)
     //other opinions?
+    return;
 }

@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 
     Accelerometer::init(0);
     Bluetooth::init(0);
+    Bluetooth::instance()->start();
 
     GameLogic* gameLogic = new GameLogic();
 
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     int returnCode = app.exec();
 
     delete gameLogic;
+    Bluetooth::instance()->stop();
     Accelerometer::destroy();
     Bluetooth::destroy();
 

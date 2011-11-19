@@ -19,6 +19,7 @@ Bluetooth::Bluetooth(QObject *parent) : QObject(parent) {
     justPolled = false; //well obviously it's going to be false for the first time
     hasBeenStarted = false;
 
+    this->mapMutex = new QMutex();
 }
 
 Bluetooth::~Bluetooth() {
@@ -27,6 +28,7 @@ Bluetooth::~Bluetooth() {
     delete btoothAddress;
     delete btoothLocDevice;
     delete timer;
+    delete mapMutex;
 }
 
 void Bluetooth::update()
@@ -50,7 +52,7 @@ void Bluetooth::start()
 {
     hasBeenStarted = true;
     discoveryAgent->start();
-    timer->start(2000);
+    timer->start(500);
 }
 
 ///
@@ -68,9 +70,11 @@ void Bluetooth::stop()
 ///
 void Bluetooth::poll()
 {
+    this->mapMutex->lock();
     discoveredDevices.clear();
     discoveredDevices = discoveryAgent->discoveredDevices();
     justPolled = true;
+    this->mapMutex->unlock();
 }
 
 ///
@@ -78,9 +82,11 @@ void Bluetooth::poll()
 ///
 void Bluetooth::forcePoll()
 {
+    this->mapMutex->lock();
     discoveredDevices.clear();
     discoveredDevices = discoveryAgent->discoveredDevices();
     justPolled = true;
+    this->mapMutex->unlock();
 }
 
 ///
@@ -114,9 +120,7 @@ QtMobility::QBluetoothAddress * Bluetooth::getDeviceAddress()
 ///
 QMap<QString, qint16> Bluetooth::getDeviceMap()
 {
-    //there are no devices, return an empty map
-    if (discoveredDevices.empty())
-        return QMap<QString, qint16>();
+    this->mapMutex->lock();
 
     QMap<QString, qint16> map = QMap<QString, qint16>();
 
@@ -124,6 +128,8 @@ QMap<QString, qint16> Bluetooth::getDeviceMap()
         //let's create the map
         map.insert(discoveredDevices[i].name(), discoveredDevices[i].rssi());
     }
+
+    this->mapMutex->unlock();
 
     return map;
 }
