@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QList>
-#include <qbluetooth.h>
+#include <QMap>
+#include <QString>
+#include <QtGlobal>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothAddress>
 #include <QBluetoothDeviceInfo>
@@ -17,12 +19,25 @@ public:
     void update();
     void start();
     void stop();
+    void forcePoll();
+    QList<QtMobility::QBluetoothDeviceInfo> getDevices();
+    QtMobility::QBluetoothLocalDevice* getLocalDevice();
+    QtMobility::QBluetoothAddress* getDeviceAddress();
+    QMap<QString, qint16> getDeviceMap();
     ~Bluetooth();
 private:
+    //variables and such
     QtMobility::QBluetoothAddress *btoothAddress; //device's bluetooth address
     QtMobility::QBluetoothLocalDevice *btoothLocDevice; //local device, used for retrieving for example MAC-address and such
     QtMobility::QBluetoothDeviceDiscoveryAgent *discoveryAgent; //used for discovering other devices
     QList<QtMobility::QBluetoothDeviceInfo> discoveredDevices; //devices discovered, duh
+
+    unsigned int updateCycle;
+    bool justPolled;
+    bool hasBeenStarted;
+
+    //private methods
+    void poll();
 
 signals:
 
