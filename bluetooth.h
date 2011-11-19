@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QString>
 #include <QtGlobal>
+#include <QTimer>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothAddress>
 #include <QBluetoothDeviceInfo>
@@ -17,7 +18,6 @@ class Bluetooth : public QObject, public Singleton<Bluetooth> {
 public:
     explicit Bluetooth(QObject *parent = 0);
     void update();
-    void start();
     void stop();
     void forcePoll();
     QList<QtMobility::QBluetoothDeviceInfo> getDevices();
@@ -31,18 +31,20 @@ private:
     QtMobility::QBluetoothLocalDevice *btoothLocDevice; //local device, used for retrieving for example MAC-address and such
     QtMobility::QBluetoothDeviceDiscoveryAgent *discoveryAgent; //used for discovering other devices
     QList<QtMobility::QBluetoothDeviceInfo> discoveredDevices; //devices discovered, duh
+    QTimer* timer;
 
     unsigned int updateCycle;
     bool justPolled;
     bool hasBeenStarted;
 
     //private methods
-    void poll();
 
 signals:
 
 public slots:
-
+    void start();
+private slots:
+    void poll();
 };
 
 #endif // BLUETOOTH_H

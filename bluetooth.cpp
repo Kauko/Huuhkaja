@@ -6,6 +6,14 @@ Bluetooth::Bluetooth(QObject *parent) : QObject(parent) {
     btoothLocDevice = new QtMobility::QBluetoothLocalDevice(this);
     btoothAddress = new QtMobility::QBluetoothAddress::QBluetoothAddress(btoothLocDevice->address());
     discoveryAgent = new QtMobility::QBluetoothDeviceDiscoveryAgent(this);
+    timer = new QTimer(this);
+    //connect discoveryAgent to finished()-signal so that when this signal is received, we start again
+    connect(discoveryAgent, SIGNAL(finished()),
+            this, SLOT(start()));
+    //and then connect timer to timeout signal, so that when timeout happens, we poll the devices again
+    connect(timer, SIGNAL(timeout()),
+            this, SLOT(poll()));
+
     discoveredDevices.clear();  //to ensure that the list is clear, damnit
 
     updateCycle = 0;    //we start from 0, obviously
@@ -19,20 +27,14 @@ Bluetooth::~Bluetooth() {
     delete discoveryAgent;
     delete btoothAddress;
     delete btoothLocDevice;
+    delete timer;
 }
 
 void Bluetooth::update()
 {
     //first we check if the polling has been started
-    if (!hasBeenStarted){
-        //if not, let's do it this way, and shame on the programmer who forgot to use Bluetooth::start()
-        discoveryAgent->start();
-        hasBeenStarted = true;
-    }
-
-    //if we are not searching for devices, let's start doing so
-    if (!discoveryAgent->isActive())
-        discoveryAgent->start();
+    if (!hasBeenStarted)
+        start();
 
     //if enough time has passed, let's poll again all the devices
     if (updateCycle == 0)
@@ -40,7 +42,7 @@ void Bluetooth::update()
 
     //some shenanigans here
     if (justPolled){
-        //do something with rssi
+        //do something with rssi?
 
         justPolled = false;
     }
@@ -57,6 +59,7 @@ void Bluetooth::start()
 {
     hasBeenStarted = true;
     discoveryAgent->start();
+    timer->start(2000);
 }
 
 ///
@@ -69,7 +72,8 @@ void Bluetooth::stop()
 
 ///
 ///Polls discoveryAgent to seek for new devices
-///Clears the current QList of items and inserts new items to it. WOO
+///Clears the current QList of items and inserts new items to it.
+///DON'T CALL THIS METHOD OUTSIDE OF THIS CLASS
 ///
 void Bluetooth::poll()
 {
@@ -122,9 +126,13 @@ QMap<QString, qint16> Bluetooth::getDeviceMap()
     //there are no devices, return an empty map
     if (discoveredDevices.empty())
         return QMap<QString, qint16>();
+
     QMap<QString, qint16> map = QMap<QString, qint16>();
 
-    for (size_t i = 0; i < discoveredDevices.size(); i++){
+    for (int i = 0; i < discoveredDevices.size(); i++){
         //let's create the map
+        map.insert(discoveredDevices[i].name(), discoveredDevices[i].rssi());
     }
+
+    return map;
 }
