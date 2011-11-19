@@ -24,11 +24,13 @@ symbian:TARGET.CAPABILITY += NetworkServices LocalServices
 
 SOURCES += main.cpp mainwindow.cpp \
     bluetooth.cpp \
-    accelerometer.cpp
+    accelerometer.cpp \
+    gamelogic.cpp
 HEADERS += mainwindow.h \
     singleton.h \
     bluetooth.h \
-    accelerometer.h
+    accelerometer.h \
+    gamelogic.h
 FORMS += mainwindow.ui
 
 INCLUDEPATH += ../../src/connectivity/bluetooth
@@ -49,6 +51,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog
+
+
 
 
 
