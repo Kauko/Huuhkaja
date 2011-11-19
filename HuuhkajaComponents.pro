@@ -31,8 +31,11 @@ HEADERS += mainwindow.h \
     accelerometer.h
 FORMS += mainwindow.ui
 
+INCLUDEPATH += ../../src/connectivity/bluetooth
+DEPENDPATH += ../../src/connectivity/bluetooth
+
 CONFIG += mobility
-MOBILITY += sensors
+MOBILITY += sensors connectivity
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
