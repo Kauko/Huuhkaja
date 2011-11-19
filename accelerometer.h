@@ -10,14 +10,27 @@ class Accelerometer : public QObject, public Singleton<Accelerometer> {
     Q_OBJECT
     QtMobility::QAccelerometer* accelerometer;
 
+    qreal x;
+    qreal y;
+    qreal z;
+
+    qreal xdelta;
+    qreal ydelta;
+    qreal zdelta;
+
+    qreal deltaLength;
+
 public:
     explicit Accelerometer(QObject *parent = 0);
     ~Accelerometer();
 
-    void getAccelerometerAcceleration();
+    qreal getAccelerometerAcceleration();
 signals:
 
 public slots:
+
+private slots:
+    void accelerometerTimeout();
 
 };
 
