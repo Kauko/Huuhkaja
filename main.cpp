@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+ #include "mainwindow.h"
 
 #include <QtGui/QApplication>
 #include <QThread>
@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     Accelerometer::init(0);
-    //Bluetooth::init(0);
+    Bluetooth::init(0);
 
     GameLogic* gameLogic = new GameLogic();
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     delete gameLogic;
     Accelerometer::destroy();
-    //Bluetooth::destroy();
+    Bluetooth::destroy();
 
     return returnCode;
 }
