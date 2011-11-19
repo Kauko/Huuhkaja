@@ -25,19 +25,19 @@ void Bluetooth::update()
 {
     //first we check if the polling has been started
     if (!hasBeenStarted){
+        //if not, let's do it this way, and shame on the programmer who forgot to use Bluetooth::start()
         discoveryAgent->start();
         hasBeenStarted = true;
     }
 
+    //if we are not searching for devices, let's start doing so
     if (!discoveryAgent->isActive())
         discoveryAgent->start();
 
-    //first, check if enough time has passed since last polling available btooth devices
-        //if enough, poll again
-        //add new devices to list and remove devices which were not found
-    //then, if we polled again, we check the signal strength for all devices we discovered
+    //if enough time has passed, let's poll again all the devices
     if (updateCycle == 0)
         poll();
+
     //some shenanigans here
     if (justPolled){
         //do something with rssi
@@ -111,4 +111,20 @@ QtMobility::QBluetoothLocalDevice * Bluetooth::getLocalDevice()
 QtMobility::QBluetoothAddress * Bluetooth::getDeviceAddress()
 {
     return btoothAddress;
+}
+
+///
+///Returns a map of devices in the form of <Name, rssi>, where name is in QString and rssi is in qint16
+///If no devices are detected, returns empty map
+///
+QMap<QString, qint16> Bluetooth::getDeviceMap()
+{
+    //there are no devices, return an empty map
+    if (discoveredDevices.empty())
+        return QMap<QString, qint16>();
+    QMap<QString, qint16> map = QMap<QString, qint16>();
+
+    for (size_t i = 0; i < discoveredDevices.size(); i++){
+        //let's create the map
+    }
 }

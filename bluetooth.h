@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QList>
+#include <QMap>
+#include <QString>
 #include <QtGlobal>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothAddress>
@@ -21,6 +23,7 @@ public:
     QList<QtMobility::QBluetoothDeviceInfo> getDevices();
     QtMobility::QBluetoothLocalDevice* getLocalDevice();
     QtMobility::QBluetoothAddress* getDeviceAddress();
+    QMap<QString, qint16> getDeviceMap();
     ~Bluetooth();
 private:
     //variables and such
