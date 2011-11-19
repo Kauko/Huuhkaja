@@ -70,6 +70,8 @@ void Bluetooth::stop()
 ///
 void Bluetooth::poll()
 {
+    forcePoll();
+    return;
     this->mapMutex->lock();
     discoveredDevices.clear();
     discoveredDevices = discoveryAgent->discoveredDevices();

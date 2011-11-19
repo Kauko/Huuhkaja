@@ -14,11 +14,14 @@ int main(int argc, char *argv[])
     Bluetooth::init(0);
     Bluetooth::instance()->start();
 
-    GameLogic* gameLogic = new GameLogic();
-
     MainWindow mainWindow;
     mainWindow.setOrientation(MainWindow::ScreenOrientationLockPortrait);
     mainWindow.showExpanded();
+
+    GameLogic* gameLogic = new GameLogic();
+
+    //HAX
+    gameLogic->initMainWindowItems(&mainWindow);
 
     int returnCode = app.exec();
 
