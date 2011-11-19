@@ -37,7 +37,7 @@ INCLUDEPATH += ../../src/connectivity/bluetooth
 DEPENDPATH += ../../src/connectivity/bluetooth
 
 CONFIG += mobility
-MOBILITY += sensors connectivity
+MOBILITY += sensors connectivity systeminfo
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

@@ -13,6 +13,7 @@ class GameLogic : public QObject
     QTimer* gameLoopTimer;
 
     QLabel* testLabel;
+    QLabel* testLabel2;
 public:
     explicit GameLogic(QObject *parent = 0);
     ~GameLogic();

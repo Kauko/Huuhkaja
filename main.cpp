@@ -6,9 +6,12 @@
 #include "bluetooth.h"
 #include "gamelogic.h"
 
+#include <QSystemScreenSaver>
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QtMobility::QSystemScreenSaver *sss=new QtMobility::QSystemScreenSaver (&app);
+    sss->setScreenSaverInhibited(true);
 
     Accelerometer::init(0);
     Bluetooth::init(0);
@@ -29,6 +32,6 @@ int main(int argc, char *argv[])
     Bluetooth::instance()->stop();
     Accelerometer::destroy();
     Bluetooth::destroy();
-
+    sss->setScreenSaverInhibited(false);
     return returnCode;
 }
