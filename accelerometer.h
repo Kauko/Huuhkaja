@@ -24,7 +24,7 @@ public:
     explicit Accelerometer(QObject *parent = 0);
     ~Accelerometer();
 
-    qreal getAccelerometerAcceleration();
+    qreal getAccelerometerAccelerationDelta();
 signals:
 
 public slots:

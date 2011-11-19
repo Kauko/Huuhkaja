@@ -38,20 +38,8 @@ void Accelerometer::accelerometerTimeout() {
     this->z = sensorZ;
 
     this->deltaLength = qSqrt(qPow(this->xdelta,2) + qPow(this->ydelta,2) + qPow(this->zdelta,2));
-
-    QString test = QString::number(this->deltaLength);
-    qDebug(test.toAscii());
 }
 
-qreal Accelerometer::getAccelerometerAcceleration() {
-/*    this->accelerometer->
-    QtMobility::QAccelerometerReading* reading = this->accelerometer->reading();
-    if(reading == NULL) return qreal(0);
-    qreal sensorX = reading->x();
-    qreal sensorY = reading->y();
-    qreal sensorZ = reading->z();
-
-    qreal acceLength = qSqrt(qPow(sensorX,2) + qPow(sensorY,2) + qPow(sensorZ,2));*/
-
-    return qreal(0);
+qreal Accelerometer::getAccelerometerAccelerationDelta() {
+    return this->deltaLength;
 }
