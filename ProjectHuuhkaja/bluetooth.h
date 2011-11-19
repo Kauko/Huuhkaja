@@ -8,6 +8,7 @@ class Bluetooth : public QObject, public Singleton<Bluetooth> {
     Q_OBJECT
 public:
     explicit Bluetooth(QObject *parent = 0);
+    ~Bluetooth();
 private:
 
 signals:
