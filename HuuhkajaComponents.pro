@@ -14,7 +14,7 @@ symbian:TARGET.UID3 = 0xE676E481
 #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
 
 # Allow network access on Symbian
-symbian:TARGET.CAPABILITY += NetworkServices
+symbian:TARGET.CAPABILITY += NetworkServices LocalServices
 
 # If your application uses the Qt Mobility libraries, uncomment
 # the following lines and add the respective components to the 
@@ -30,6 +30,9 @@ HEADERS += mainwindow.h \
     bluetooth.h \
     accelerometer.h
 FORMS += mainwindow.ui
+
+CONFIG += mobility
+MOBILITY += sensors
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
