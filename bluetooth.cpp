@@ -16,7 +16,6 @@ Bluetooth::Bluetooth(QObject *parent) : QObject(parent) {
 
     discoveredDevices.clear();  //to ensure that the list is clear, damnit
 
-    updateCycle = 0;    //we start from 0, obviously
     justPolled = false; //well obviously it's going to be false for the first time
     hasBeenStarted = false;
 
@@ -36,20 +35,12 @@ void Bluetooth::update()
     if (!hasBeenStarted)
         start();
 
-    //if enough time has passed, let's poll again all the devices
-    if (updateCycle == 0)
-        poll();
-
     //some shenanigans here
     if (justPolled){
         //do something with rssi?
 
         justPolled = false;
     }
-
-    updateCycle++;
-    if (updateCycle == 300)
-        updateCycle = 0;
 }
 
 ///

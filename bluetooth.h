@@ -33,7 +33,6 @@ private:
     QList<QtMobility::QBluetoothDeviceInfo> discoveredDevices; //devices discovered, duh
     QTimer* timer;
 
-    unsigned int updateCycle;
     bool justPolled;
     bool hasBeenStarted;
 
