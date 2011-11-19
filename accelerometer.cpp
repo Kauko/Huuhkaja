@@ -20,7 +20,9 @@ Accelerometer::Accelerometer(QObject *parent) : QObject(parent) {
 
 Accelerometer::~Accelerometer() {
     qDebug("Accelerometer Destruct");
+    disconnect();
     this->accelerometer->stop();
+    delete this->accelerometer;
 }
 
 void Accelerometer::accelerometerTimeout() {
