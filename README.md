@@ -7,7 +7,7 @@ uses the accelerometer; players must move carefully, as fast movements weaken th
 
 Team
 -------
-Jukka Pietilä, Programming
-Antti Tönkyrä, Programming
-Teemu Kaukoranta, Programming
-Kati Koivupalo, Graphics
+Jukka Pietilä, Programming      
+Antti Tönkyrä, Programming      
+Teemu Kaukoranta, Programming       
+Kati Koivupalo, Graphics       
